@@ -26,7 +26,7 @@ class TodoItemsController < ApplicationController
     @todo_item = @todo_list.todo_items.build(todo_item_params)
 
     if @todo_item.save
-      redirect_to([@todo_item.todo_list, @todo_item], notice: 'Todo item was successfully created.')
+      redirect_to(@todo_item.todo_list)
     else
       render action: 'new'
     end
@@ -35,7 +35,7 @@ class TodoItemsController < ApplicationController
   # PUT todo_lists/1/todo_items/1
   def update
     @todo_item = @todo_list.todo_items.find(params[:id])
-    if @todo_item.update_attributes(todo_item_params)
+    if @todo_item.update(todo_item_params)
       flash[:success] = 'Saved todo list item.'
       redirect_to todo_list_todo_items_path
     else
